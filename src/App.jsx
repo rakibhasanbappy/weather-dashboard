@@ -1,7 +1,7 @@
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 
-import { WeatherProvider } from "./provider";
+import { FavouriteProvider, WeatherProvider } from "./provider";
 
 export default function App() {
   return (
@@ -14,8 +14,10 @@ export default function App() {
       }}
     >
       <WeatherProvider>
-        <Header />
-        <Dashboard />
+        <FavouriteProvider>
+          <Header />
+          <Dashboard />
+        </FavouriteProvider>
       </WeatherProvider>
     </div>
   );

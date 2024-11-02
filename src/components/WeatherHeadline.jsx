@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import pin from "../assets/pin.svg";
-import { WeatherContext } from "../context/WeatherContext";
+import { WeatherContext } from "../context";
 
 import CloudIcon from "../assets/cloud.svg";
 import HazeIcon from "../assets/haze.svg";

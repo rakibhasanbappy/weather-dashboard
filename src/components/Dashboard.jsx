@@ -4,7 +4,7 @@ import WeatherHeadline from "./WeatherHeadline";
 
 import { useContext } from "react";
 
-import { WeatherContext } from "../context/WeatherContext";
+import { WeatherContext } from "../context";
 
 export default function Dashboard() {
   const { loading } = useContext(WeatherContext);

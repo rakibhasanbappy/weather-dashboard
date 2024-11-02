@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import heartLogo from "../assets/heart.svg";
-import { FavouriteContext } from "../context";
+import { FavouriteContext, LocationContext } from "../context";
 
 export default function FavouriteModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { favourites } = useContext(FavouriteContext);
+  const { setLocation } = useContext(LocationContext);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -32,8 +33,12 @@ export default function FavouriteModal() {
             )}
             {favourites.map((favourite) => (
               <li
-                key={favourite.longtitude + favourite.latitude}
+                key={favourite.location}
                 className="hover:bg-gray-200"
+                onClick={() => {
+                  setLocation({ ...favourite });
+                  setIsOpen(false);
+                }}
               >
                 {favourite.location}
               </li>

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import heartLogoRed from "../assets/heart-red.svg";
 import heartLogo from "../assets/heart.svg";
 import { FavouriteContext, WeatherContext } from "../context";
@@ -9,13 +9,14 @@ export default function AddToFavourite() {
 
   const { weather } = useContext(WeatherContext);
 
-  function checkFavourite() {
-    return favourites.some(
+  const [isFavourite, toggleFavourite] = useState(false);
+
+  useEffect(() => {
+    const found = favourites.some(
       (favourite) => favourite.location === weather.location
     );
-  }
-
-  const [isFavourite, toggleFavourite] = useState(checkFavourite());
+    toggleFavourite(found);
+  }, [favourites, weather.location]);
 
   const handleFavourite = () => {
     if (isFavourite) {

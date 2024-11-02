@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useWeather = () => {
     const [weather, setWeather] = useState({
@@ -27,7 +27,7 @@ const useWeather = () => {
         setLoading({ state: true, message: "Loading weather data..." });
         try {
             const response = await fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.VITE_WEATHER_API_KEY}&units=metric`
+                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`
             );
 
             if (!response.ok) {
@@ -55,6 +55,29 @@ const useWeather = () => {
         }
     };
 
-    return { weather, loading, error, fetchWeatherData };
+    useEffect(() => {
+
+        setLoading({ state: true, message: "Fetching location..." });
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                fetchWeatherData(position.coords.latitude, position.coords.longitude);
+            },
+            (error) => {
+                setError(error);
+            }
+        );
+        setLoading({ state: false, message: "" });
+    }, []);
+
+    return { weather, loading, error };
 
 }
+
+export default useWeather;
+
+ 
+//  In the above code, we have created a custom hook called  useWeather  that fetches the weather data from the OpenWeatherMap API. 
+//  The custom hook returns an object with three properties:  weather ,  loading , and  error . 
+//  The  weather  object contains the weather data fetched from the API. The  loading  object contains the loading state and message. The  error  object contains any error that occurred during the fetching of weather data. 
+//  Now, let’s use this custom hook in our  App  component.

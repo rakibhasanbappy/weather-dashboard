@@ -1,6 +1,8 @@
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 
+import { WeatherProvider } from "./provider";
+
 export default function App() {
   return (
     <div
@@ -11,8 +13,10 @@ export default function App() {
         backgroundSize: "cover",
       }}
     >
-      <Header />
-      <Dashboard />
+      <WeatherProvider>
+        <Header />
+        <Dashboard />
+      </WeatherProvider>
     </div>
   );
 }
